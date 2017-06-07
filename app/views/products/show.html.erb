@@ -1,6 +1,4 @@
 <div class="row">
-
-
     <div class='col-xs-12 col-md-6'>
       <% if @photos.present? %>
          <div class="tab-content clear-fix">
@@ -18,70 +16,88 @@
            <% @photos.each_with_index do |p,index| %>
              <% if index <4 %>
                <li>
-                <div style="letter-spacing: 50px"> <a href="#<%= index %>" data-toggle="tab"><%= image_tag(p.avatar.small.url) %></a></div>
+                <div style="letter-spacing: 50px"> <a href="#<%= index %>" data-toggle="tab"><%= image_tag(p.avatar.small.url,class:"thumbnail" ) %></a></div>
                </li>
              <% end %>
            <% end %>
          </ul>
-        <% else %>
-          <%= image_tag("http://placehold.it/400x400&text=No Pic", class:"thumbnail") %>
-        <% end %>
-      </div>
+      <% else %>
+        <%= image_tag("http://placehold.it/400x400&text=No Pic", class:"thumbnail") %>
+      <% end %>
+    </div>
 
 
+    <div class="col-md-6", style="margin-top:120px">
       <div class="col-md-6">
-          <div class="col-md-6">
-            <h2> <%= @product.title %> </h2>
-            <div style="height:100px;">
-              <p>
-                <%= @product.description %>
-              </p>
-            </div>
-            <div> 数量 : <%= @product.quantity %> </div>
-            <div>类别 : <%= @product.category.name %></div>
-            <div class="product-price"> ￥ <%= @product.price %> </div>
-            <span>
-              <% if current_user && current_user.is_like?(@product) %>
-                <%= link_to("取消商品", unlike_product_path(@product), method: :post, class: "fa fa-heart") %>
-              <% else %>
-                <%= link_to("收藏收藏", like_product_path(@product), method: :post, class: "fa fa-heart", style:"color:red" ) %>
-              <% end %>
-            </span>
-            <div class="pull-right">
-              <% if @product.quantity.present? && @product.quantity > 0 %>
-                <%= link_to("加入购物车", add_to_cart_product_path(@product), method: :post, class: "btn btn-lg btn-danger") %>
-              <% else %>
-                已销售一空，无法购买
-               <% end %>
-            </div>
-          </div>
+        <h2> <%= @product.title %> </h2>
+        <div style="height:100px;">
+          <p>
+            <%= @product.description %>
+          </p>
+        </div>
+        <div> 数量 : <%= @product.quantity %> </div>
+        <div>类别 : <%= @product.category.name %></div>
+        <div class="product-price"> ￥ <%= @product.price %> </div>
+        <br>
+        <span>
+          <% if current_user && current_user.is_like?(@product) %>
+            <%= link_to("取消商品", unlike_product_path(@product), method: :post, class: "fa fa-heart", style:"text-decoration:none; weight:80px") %>
+          <% else %>
+            <%= link_to("收藏收藏", like_product_path(@product), method: :post, class: "fa fa-heart", style:"text-decoration:none; weight:80px; color:red" ) %>
+          <% end %>
+        </span>
+        <div class="pull-right">
+          <% if @product.quantity.present? && @product.quantity > 0 %>
+            <%= link_to("加入购物车", add_to_cart_product_path(@product), method: :post, class: "btn btn-lg btn-danger") %>
+          <% else %>
+            已销售一空，无法购买
+           <% end %>
         </div>
       </div>
 
-      <div>
-          <% if @product.image.present? %>
-            <%= image_tag(@product.image.thumb.url, class: "thumbnail") %>
-          <% else %>
-            <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
-          <% end %>
+    </div>
+</div>
 
 
-          <% if @product.image2.present? %>
-            <%= image_tag(@product.image2.thumb.url, class: "thumbnail") %>
-          <% else %>
-            <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
-          <% end %>
 
-          <% if @product.image3.present? %>
-            <%= image_tag(@product.image3.thumb.url, class: "thumbnail") %>
-          <% else %>
-            <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
-          <% end %>
+<div class="row">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">商品详情</a></li>
+    <li><a data-toggle="tab" href="#menu1">商品评价</a></li>
+  </ul>
 
-          <% if @product.image4.present? %>
-            <%= image_tag(@product.image4.thumb.url, class: "thumbnail") %>
-          <% else %>
-            <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
-          <% end %>
+  <div class="tab-content">
+    <div class="col-md-offset-3 col-md-6">
+      <div id="home" class="tab-pane fade in active" style="overflow:auto">
+        <% if @product.image.present? %>
+          <%= image_tag(@product.image.thumb.url) %>
+        <% else %>
+          <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+        <% end %>
+
+
+        <% if @product.image2.present? %>
+          <%= image_tag(@product.image2.thumb.url) %>
+        <% else %>
+          <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+        <% end %>
+
+        <% if @product.image3.present? %>
+          <%= image_tag(@product.image3.thumb.url) %>
+        <% else %>
+          <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+        <% end %>
+
+        <% if @product.image4.present? %>
+          <%= image_tag(@product.image4.thumb.url) %>
+        <% else %>
+          <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+        <% end %>
       </div>
+      <div id="menu1" class="tab-pane fade" align="center">
+          <h3 class="eva-nil">不好意思，暂无商品评价</h3>
+      </div>
+    </div>
+  </div>
+
 </div>
